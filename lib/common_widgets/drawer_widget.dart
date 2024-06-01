@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/main.dart';
 import 'package:newsapp/screens/homepage.dart';
 import 'package:newsapp/screens/saved_article.dart';
 import 'package:newsapp/screens/trending.dart';
+import 'package:newsapp/screens/loginscreen.dart';
+import 'package:newsapp/screens/signupscreen.dart';
 
-Widget drawermenu(BuildContext context) {
+Widget drawermenu(BuildContext context, bool isLoggedIn, Function(bool) onLoginStatusChange) {
   return Drawer(
     backgroundColor: Colors.white,
     child: ListView(
@@ -15,8 +16,9 @@ Widget drawermenu(BuildContext context) {
         ),
         ListTile(
           onTap: () {
-            Navigator.of(context).push(
+            Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) => Home()),
+                  (Route<dynamic> route) => false,
             );
           },
           title: Row(
@@ -61,6 +63,30 @@ Widget drawermenu(BuildContext context) {
               Icon(Icons.settings),
               SizedBox(width: 10),
               Text('Settings'),
+            ],
+          ),
+        ),
+        ListTile(
+          onTap: () {
+            if (isLoggedIn) {
+              // Log out
+              onLoginStatusChange(false);
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => Loginscreen(onLoginStatusChange: onLoginStatusChange)),
+                    (Route<dynamic> route) => false,
+              );
+            } else {
+              // Navigate to login screen
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Loginscreen(onLoginStatusChange: onLoginStatusChange)),
+              );
+            }
+          },
+          title: Row(
+            children: [
+              Icon(isLoggedIn ? Icons.logout : Icons.login_rounded),
+              SizedBox(width: 10),
+              Text(isLoggedIn ? 'Sign Out' : 'Login'),
             ],
           ),
         ),
