@@ -58,15 +58,6 @@ Widget drawermenu(BuildContext context, bool isLoggedIn, Function(bool) onLoginS
           ),
         ),
         ListTile(
-          title: Row(
-            children: [
-              Icon(Icons.settings),
-              SizedBox(width: 10),
-              Text('Settings'),
-            ],
-          ),
-        ),
-        ListTile(
           onTap: () {
             if (isLoggedIn) {
               // Log out
@@ -86,7 +77,7 @@ Widget drawermenu(BuildContext context, bool isLoggedIn, Function(bool) onLoginS
             children: [
               Icon(isLoggedIn ? Icons.logout : Icons.login_rounded),
               SizedBox(width: 10),
-              Text(isLoggedIn ? 'Sign Out' : 'Login'),
+              Text(isLoggedIn ? 'Login' : 'Sign Out'),
             ],
           ),
         ),

@@ -27,7 +27,6 @@ class _LoginscreenState extends State<Loginscreen> {
 
       if (storedEmail == _emailController.text && storedPassword == _passwordController.text) {
         await prefs.setBool('isLoggedIn', true);
-        widget.onLoginStatusChange(true); // Update login status
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login successful')),
@@ -37,7 +36,7 @@ class _LoginscreenState extends State<Loginscreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const Home(),
+            builder: (context) => const Homepage(),
           ),
         );
       } else {
